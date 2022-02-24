@@ -1,0 +1,63 @@
+﻿@page
+@model IranSkill19Session5.Pages.ResultModel
+@{
+}
+
+
+<div class="row" style="height:300px;background-image:url('img/l2.jpg')">
+    <div class="col-2"></div>
+    <div class="col-8">
+
+        <form method="post" asp-page-handler="Search" asp-page="Index" class="form">
+            <br />
+            <input value="@Model.SearchModel.RestaurantName"
+            placeholder="restaurnat Name" class="form-control" asp-for="SearchModel.RestaurantName"/><br />
+            <select class="form-control" asp-for="SearchModel.GroupId">
+                @foreach(var item in Model.Groups)
+                {
+                    if(item.Id == Model.SearchModel.GroupId)
+                    {
+                        <option selected value="@item.Id">@item.Name</option>
+
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                       
+                    }
+                    
+                }
+            </select>
+            <br /><input value="@Model.SearchModel.CityName" class="form-control" placeholder="City" asp-for="SearchModel.CityName"/>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+
+
+    </div>
+
+    <div class="col-2"></div>
+
+
+</div>
+
+<div class="row">
+    
+
+    <div class="col-8">
+        @foreach(var item in Model.Restaurnats){
+            <a asp-page="Resta" asp-route-id="@item.Id" class="card col-12">
+                <div class="card-body"> 
+                    <img class="col-3" height=150 width=150 src="img/@item.LogoImage"/>
+                    <div>
+                        <h3>@item.Name</h3><br>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+        <div class="col-4">
+
+    </div>
+</div>

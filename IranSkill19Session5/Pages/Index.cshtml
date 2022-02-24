@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row" style="height:300px;background-image:url('img/l2.jpg')">
+    <div class="col-2"></div>
+    <div class="col-8">
+
+        <form method="post" asp-page-handler="Search" class="form">
+            <br />
+            <input placeholder="restaurnat Name" class="form-control" asp-for="SearchModel.RestaurantName"/><br />
+            <select class="form-control" asp-for="SearchModel.GroupId">
+                @foreach(var item in Model.Groups)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                    
+                }
+            </select>
+            <br /><input class="form-control" placeholder="City" asp-for="SearchModel.CityName"/>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+
+        <div class="row">
+            <div class="col-6 card">
+                <div class="card-body"> 
+                    <h5>Restaurant Count</h5>
+                    <p>@Model.RestaurantCount</p>
+                </div>
+            </div>
+           <div class="col-6 card">
+                <div class="card-body"> 
+                    <h5>Bakery Count</h5>
+                    <p>@Model.BakeryCount</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-2"></div>
+
+</div>
+<div class="row" style="margin-top:50px">
+    @foreach(var item in @Model.Groups)
+    {
+        <form class="col-2" method="post" asp-page-handler="search">
+            <input asp-for="SearchModel.GroupId" hidden="hidden"/>
+    <button type="submit" class="col-12 card">
+            <div class="card-body" 
+            style="background-image:url('img/@item.PicAddress');background-repeat:no-repeat;"> 
+                <h3 style="color:red">@item.Name</h3>
+            </div>
+        </button>
+        
+        </form>
+    }
+</div>

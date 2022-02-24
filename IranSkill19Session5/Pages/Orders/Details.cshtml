@@ -1,0 +1,67 @@
+﻿@page
+@model IranSkill19Session5.Pages.Orders.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.SubmitDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.SubmitDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Coupon)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Coupon)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Restaurant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Restaurant.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.User.Id)
+        </dd>
+    </dl>
+</div>
+
+<h1>Ordered Items</h1>
+<div class="row">
+    @foreach(var item in Model.Order.OrderItems){
+        <div  class="card col-12">
+                <div class="card-body"> 
+                    <img class="col-3" height=150 width=150 src="../img/@item.Food.CoverImage"/>
+                    <div>
+                        <h3>@item.Food.Name</h3><br/>
+                        <h3>@item.Food.Group.Name</h3><br/>
+                        <p>@item.Food.Price</p><br/>
+                    </div>
+                </div>
+            </div>
+    }
+
+</div>
+
+<div>
+    @*<a asp-page="./Edit" asp-route-id="@Model.Order.Id">Edit</a> |*@
+    <a asp-page="./Index">Back to List</a>
+</div>

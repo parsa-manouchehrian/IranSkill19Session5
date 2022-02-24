@@ -1,0 +1,81 @@
+﻿@page
+@model IranSkill19Session5.Pages.RestaModel
+@{
+}
+
+@section Style{
+    <style>
+        #main *{
+            color:white;
+        }
+
+        .m-10{
+            margin:10px;
+        }
+    </style>
+}
+
+<div id="main" class="row" style="height:300px;background-image:url('img/l2.jpg')">
+    <div class="col-10 m-10">
+
+       <h1>Restaurant</h1>
+       <h3>@Model.Restaurant.Name</h3>
+       <h4>@Model.Restaurant.Description</h4>
+       <h5>Address: @Model.Restaurant.Address</h5>
+       <h5>Rate: @Model.Restaurant.Rate</h5>
+
+    </div>
+
+    <div class="col-2"></div>
+
+
+</div>
+
+<div class="row">
+
+    <div class="col-8">
+        @foreach(var item in Model.Restaurant.Foods){
+            <div  class="card col-12">
+                <div class="card-body"> 
+                    <img class="col-3" height=150 width=150 src="img/@item.CoverImage"/>
+                    <div>
+                        <h3>@item.Name</h3><br/>
+                        <h3>@item.Group.Name</h3><br/>
+                        <p>@item.Price</p><br/>
+                    </div>
+                </div>
+                <form asp-page-handler="Cart" method="post">
+                    <input name="foodID" value="@item.Id" hidden="hidden"/>
+                    <input name="restaurantId" value="@Model.Restaurant.Id" hidden="hidden"/>
+
+                     <button type="submit" class="btn-primary btn">Add to Cart</button>
+                    
+                </form>
+            </div>
+        }
+    </div>
+
+    @if(Model.order != null){
+        <div class="col-4">
+            <h2>Your cart</h2>
+            <h4>Submitted on @Model.order.SubmitDateTime.ToLongTimeString()</h4>
+            <ul>
+            @foreach(var item in Model.OrderFood){
+                <li>@item.Name (@item.Price)</li>
+            }
+
+            </ul>
+
+            <form asp-page-handler="Submit" method="post">
+                Address:
+                <textarea class="form-control" asp-for="Address"></textarea>
+                Coupon:
+                <input class="form-control" asp-for="Coupon"/>
+                <br/>
+                <h3>Total: @Model.Total</h3>
+                <br/>
+                <button class="btn btn-primary">Submit Order</button>
+            </form>
+       </div>
+    }
+</div>
